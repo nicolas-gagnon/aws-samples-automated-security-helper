@@ -8,10 +8,11 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Instal prerequisites
 RUN apt-get update && \
     apt-get upgrade -y && \
+    pip install --no-cache-dir --upgrade pip && \
     apt-get install -y ruby-full && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install -U checkov && gem install cfn-nag
+RUN pip install -U checkov && gem install cfn-nag
 WORKDIR /app
 
 CMD bash -C /utils/yaml-docker-execute.sh
